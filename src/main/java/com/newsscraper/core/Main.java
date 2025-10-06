@@ -8,8 +8,6 @@ import com.newsscraper.ui.*;
 
 import java.util.ArrayList;
 
-// TODO: File Logger Sink, Unit Tests, News Impl
-
 public class Main {
     public static void main(String[] args) {
         Logger.setLevel(LoggingLevel.DEBUG);

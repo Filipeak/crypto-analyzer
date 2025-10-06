@@ -3,6 +3,7 @@ package com.newsscraper.sources;
 import com.newsscraper.data.DataManager;
 import com.newsscraper.data.WebDataFrame;
 import com.newsscraper.data.WebSource;
+import com.newsscraper.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,7 +34,7 @@ public class WirtualnaPolskaDownloader implements WebSource {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
     }
 }
