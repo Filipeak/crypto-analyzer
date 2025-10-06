@@ -22,7 +22,6 @@ public class MainPanel {
         window.setTitle("News Scraper");
         window.setSize(500, 400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -54,13 +53,17 @@ public class MainPanel {
 
         startButton.setBounds(window.getWidth() / 2 - buttonWidth / 2, 250, buttonWidth, 50);
         startButton.addActionListener(e -> {
-            Logger.info("Starting News Scraper...");
+            if (currentSource != null) {
+                Logger.info("Starting News Scraper...");
 
-            DataManager.getInstance().initRepo();
+                DataManager.getInstance().initRepo();
 
-            currentSource.downloadFromWeb();
+                currentSource.downloadFromWeb();
 
-            DataManager.getInstance().flushRepo();
+                DataManager.getInstance().flushRepo();
+            } else {
+                Logger.error("No source selected");
+            }
         });
 
         window.add(startButton);

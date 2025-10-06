@@ -20,18 +20,19 @@ public class WirtualnaPolskaDownloader implements WebSource {
     public void downloadFromWeb() {
         try {
             Document doc = Jsoup.connect("https://www.wp.pl/").get();
-            Elements parents = doc.select("div[data-st-area=section-news]");
+            doc.select("div[data-bdc=section-mmoGames]").remove();
 
-            for (Element parent : parents) {
-                Elements news = parent.select("a.wp-teaser-regular");
+            Elements news = doc.select("div.wp-teaser-content");
+            Elements additionalNews = doc.select("div.wp-content-wrapper");
 
-                for (Element newsObj : news) {
-                    String url = newsObj.attr("href");
-                    String imgUrl = newsObj.selectFirst("div.wp-image-placeholder").child(0).attr("src");
-                    String title = newsObj.selectFirst("div.wp-teaser-title").text();
+            news.addAll(additionalNews);
 
-                    DataManager.getInstance().pushWebDataFrame(new WebDataFrame("wp.pl", title, url, imgUrl));
-                }
+            for (Element e : news) {
+                String title = e.text();
+                String url = e.parent().attr("href");
+                String imgUrl = e.parent().select("img").attr("src");
+
+                DataManager.getInstance().pushWebDataFrame(new WebDataFrame("wp.pl", title, url, imgUrl));
             }
         } catch (Exception e) {
             Logger.error(e.getMessage());
