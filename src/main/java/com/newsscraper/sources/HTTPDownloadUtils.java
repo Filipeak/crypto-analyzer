@@ -10,9 +10,11 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
-public final class CryptoHTTPDownloadUtils {
+public final class HTTPDownloadUtils {
 
     public static String fetch(String urlString) {
+        Logger.info("Fetching URL: " + urlString);
+
         URL url;
 
         try {
@@ -47,6 +49,8 @@ public final class CryptoHTTPDownloadUtils {
 
             return null;
         }
+
+        Logger.info("Successfully completed request to: " + urlString);
 
         return jsonStr.toString();
     }

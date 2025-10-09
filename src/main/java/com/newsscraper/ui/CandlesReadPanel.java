@@ -7,12 +7,12 @@ import com.newsscraper.logging.Logger;
 
 import javax.swing.*;
 
-public class PagesReadPanel implements WebDataReceiver {
+public class CandlesReadPanel implements WebDataReceiver {
 
     private int counter;
     private final JLabel textLabel;
 
-    public PagesReadPanel(JFrame window) {
+    public CandlesReadPanel(JFrame window) {
         final int textWidth = 250;
 
         textLabel = new JLabel("", SwingConstants.CENTER);
@@ -46,6 +46,6 @@ public class PagesReadPanel implements WebDataReceiver {
     }
 
     private void updateCounterText() {
-        textLabel.setText("Current Pages Read: " + counter);
+        textLabel.setText("Current Candles Read: " + counter);
     }
 }

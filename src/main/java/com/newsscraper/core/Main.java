@@ -8,8 +8,7 @@ import com.newsscraper.ui.*;
 
 import java.util.ArrayList;
 
-// TODO: What to do with data (filter for keyword?) - change for other API
-//      - Analysis manager (new exporter)
+// TODO: Analysis manager (new exporter)
 // TODO: Unit tests (better abstraction for files)
 // TODO: UML diagrams
 

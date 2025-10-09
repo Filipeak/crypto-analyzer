@@ -20,7 +20,7 @@ public class MainPanel {
 
     public MainPanel(List<WebSource> sources, List<Exporter> exporters) {
         window = new JFrame();
-        window.setTitle("News Scraper");
+        window.setTitle("Crypto downloader");
         window.setSize(500, 400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addWindowListener(new WindowAdapter() {
@@ -75,7 +75,7 @@ public class MainPanel {
     }
 
     private void setupPagesReadText() {
-        new PagesReadPanel(window);
+        new CandlesReadPanel(window);
     }
 
     private void setupSources() {
