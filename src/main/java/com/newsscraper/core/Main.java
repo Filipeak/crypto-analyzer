@@ -8,9 +8,10 @@ import com.newsscraper.ui.*;
 
 import java.util.ArrayList;
 
+// TODO: What to do with data (filter for keyword?) - change for other API
+//      - Analysis manager (new exporter)
+// TODO: Unit tests (better abstraction for files)
 // TODO: UML diagrams
-// TODO: What to do with data (filter for keyword?)
-// TODO: Unit tests
 
 public class Main {
     public static void main(String[] args) {
@@ -19,8 +20,8 @@ public class Main {
         Logger.getInstance().addSink(new FileLoggingSink());
 
         ArrayList<WebSource> sources = new ArrayList<>();
-        sources.add(new GazetaPolskaDownloader());
-        sources.add(new WirtualnaPolskaDownloader());
+        sources.add(new BinanceDownloader());
+        sources.add(new CoinbaseDownloader());
 
         ArrayList<Exporter> exporters = new ArrayList<>();
         exporters.add(new CSVExporter());

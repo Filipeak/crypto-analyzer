@@ -31,10 +31,13 @@ public class JSONExporter extends FileExporter {
     public void onSetData(WebDataFrame frame) {
         String forwardLine = isFirstFrame ? "" : ",\n";
         String content = "\t{\n" +
-                "\t\t\"source\": \"" + frame.source + "\",\n" +
-                "\t\t\"title\": \"" + formatTitle(frame.title) + "\",\n" +
-                "\t\t\"url\": \"" + frame.url + "\",\n" +
-                "\t\t\"imgUrl\": \"" + frame.imgUrl + "\"\n" +
+                "\t\t\"symbol\": \"" + frame.symbol + "\",\n" +
+                "\t\t\"timestamp\": " + frame.timestamp + ",\n" +
+                "\t\t\"open\": " + frame.open + ",\n" +
+                "\t\t\"close\": " + frame.close + ",\n" +
+                "\t\t\"high\": " + frame.high + ",\n" +
+                "\t\t\"low\": " + frame.low + ",\n" +
+                "\t\t\"volume\": " + frame.volume + "\n" +
                 "\t}";
 
         isFirstFrame = false;
@@ -47,10 +50,5 @@ public class JSONExporter extends FileExporter {
         writeToFile("\n]\n");
 
         super.onEnd();
-    }
-
-
-    private String formatTitle(String title) {
-        return title.replace("\"", "\\\"");
     }
 }

@@ -21,6 +21,7 @@ public final class Logger {
 
     public Logger() {
         sinks = new HashSet<>();
+        currentLevel = LoggingLevel.DEBUG;
     }
 
 

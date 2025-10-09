@@ -20,22 +20,20 @@ public class CSVExporter extends FileExporter {
     public void onBegin() {
         super.onBegin();
 
-        writeToFile("source,title,url,imgUrl\n");
+        writeToFile("symbol,timestamp,open,close,high,low,volume\n");
     }
 
     @Override
     public void onSetData(WebDataFrame frame) {
-        String content = String.format("\"%s\",\"%s\",\"%s\",\"%s\"\n",
-                formatField(frame.source),
-                formatField(frame.title),
-                formatField(frame.url),
-                formatField(frame.imgUrl));
+        String content = String.format("\"%s\",\"%d\",\"%f\",\"%f\",\"%f\",\"%f\",\"%f\"\n",
+                frame.symbol,
+                frame.timestamp,
+                frame.open,
+                frame.close,
+                frame.high,
+                frame.low,
+                frame.volume);
 
         writeToFile(content);
-    }
-
-
-    private String formatField(String field) {
-        return field.replace("\"", "\\\"");
     }
 }

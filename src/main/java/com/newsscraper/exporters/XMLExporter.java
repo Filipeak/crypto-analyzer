@@ -20,8 +20,10 @@ public class XMLExporter extends FileExporter {
     public void onBegin() {
         super.onBegin();
 
-        String content = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-                "<frames>\n";
+        String content = """
+                <?xml version="1.0" encoding="utf-8"?>
+                <frames>
+                """;
 
         writeToFile(content);
     }
@@ -29,10 +31,13 @@ public class XMLExporter extends FileExporter {
     @Override
     public void onSetData(WebDataFrame frame) {
         String content = "\t<frame>\n" +
-                "\t\t<source>" + frame.source + "</source>\n" +
-                "\t\t<title>" + formatTitle(frame.title) + "</title>\n" +
-                "\t\t<url>" + frame.url + "</url>\n" +
-                "\t\t<imgUrl>" + frame.imgUrl + "</imgUrl>\n" +
+                "\t\t<symbol>" + frame.symbol + "</symbol>\n" +
+                "\t\t<timestamp>" + frame.timestamp + "</timestamp>\n" +
+                "\t\t<open>" + frame.open + "</open>\n" +
+                "\t\t<close>" + frame.close + "</close>\n" +
+                "\t\t<high>" + frame.high + "</high>\n" +
+                "\t\t<low>" + frame.low + "</low>\n" +
+                "\t\t<volume>" + frame.volume + "</volume>\n" +
                 "\t</frame>\n";
 
         writeToFile(content);
@@ -43,10 +48,5 @@ public class XMLExporter extends FileExporter {
         writeToFile("</frames>\n");
 
         super.onEnd();
-    }
-
-
-    private String formatTitle(String title) {
-        return title.replace("\"", "&quot;");
     }
 }

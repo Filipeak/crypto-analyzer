@@ -19,16 +19,14 @@ public class YAMLExporter extends FileExporter {
     @Override
     public void onSetData(WebDataFrame frame) {
         String content = "-\n" +
-                "  source: \"" + frame.source + "\"\n" +
-                "  title: \"" + formatTitle(frame.title) + "\"\n" +
-                "  url: \"" + frame.url + "\"\n" +
-                "  imgUrl: \"" + frame.imgUrl + "\"\n";
+                "  symbol: " + frame.symbol + "\n" +
+                "  timestamp: " + frame.timestamp + "\n" +
+                "  open: " + frame.open + "\n" +
+                "  close: " + frame.close + "\n" +
+                "  high: " + frame.high + "\n" +
+                "  low: " + frame.low + "\n" +
+                "  volume: " + frame.volume + "\n";
 
         writeToFile(content);
-    }
-
-
-    private String formatTitle(String title) {
-        return title.replace("\"", "\\\"");
     }
 }
