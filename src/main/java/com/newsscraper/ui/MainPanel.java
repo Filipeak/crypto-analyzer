@@ -2,6 +2,7 @@ package com.newsscraper.ui;
 
 import com.newsscraper.data.DataManager;
 import com.newsscraper.data.WebSource;
+import com.newsscraper.data.WebSourceStatus;
 import com.newsscraper.exporters.Exporter;
 import com.newsscraper.logging.Logger;
 
@@ -58,7 +59,9 @@ public class MainPanel {
 
                 DataManager.getInstance().initRepo();
 
-                currentSource.downloadFromWeb();
+                WebSourceStatus status = currentSource.downloadFromWeb();
+
+                showStatusPanel(status);
 
                 DataManager.getInstance().flushRepo();
             } else {
@@ -121,5 +124,15 @@ public class MainPanel {
         }
 
         Logger.info("Setup of exporters buttons complete!");
+    }
+
+    private void showStatusPanel(WebSourceStatus status) {
+        String messageText = switch (status) {
+            case WebSourceStatus.SUCCESS -> "Success";
+            case WebSourceStatus.FAILURE_NO_INTERNET -> "No internet connection";
+            case WebSourceStatus.FAILURE_NO_DATA -> "No data! Unexpected error occurred.";
+        };
+
+        JOptionPane.showMessageDialog(window, messageText);
     }
 }

@@ -8,6 +8,10 @@ import com.newsscraper.ui.*;
 
 import java.util.ArrayList;
 
+// TODO: UML diagrams
+// TODO: What to do with data (filter for keyword?)
+// TODO: Unit tests
+
 public class Main {
     public static void main(String[] args) {
         Logger.setLevel(LoggingLevel.DEBUG);
