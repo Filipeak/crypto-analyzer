@@ -25,7 +25,7 @@ public class CSVExporter extends FileExporter {
 
     @Override
     public void onSetData(WebDataFrame frame) {
-        String content = String.format("\"%s\",\"%d\",\"%f\",\"%f\",\"%f\",\"%f\",\"%f\"\n",
+        String content = String.format("%s,%d,%f,%f,%f,%f,%f\n",
                 frame.symbol,
                 frame.timestamp,
                 frame.open,

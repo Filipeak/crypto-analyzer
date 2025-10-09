@@ -33,7 +33,7 @@ public class BinanceDownloader implements WebSource {
 
                 DataManager.getInstance().pushWebDataFrame(new WebDataFrame(
                         "BTC_USD",
-                        element.getInt(0) / 1000,
+                        (int)(element.getLong(0) / 1000),
                         element.getFloat(1),
                         element.getFloat(4),
                         element.getFloat(3),
