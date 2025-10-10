@@ -27,7 +27,7 @@ public abstract class FileExporter implements Exporter {
     }
 
 
-    protected abstract String getExtension();
+    protected abstract String getCustomNameAndExtension();
 
     protected void writeToFile(String content) {
         try {
@@ -45,7 +45,7 @@ public abstract class FileExporter implements Exporter {
     @Override
     public void onBegin() {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss");
-        String fileName = BASE_DIR + "CryptoData_" + formatter.format(new Date()) + getExtension();
+        String fileName = BASE_DIR + "CryptoData_" + formatter.format(new Date()) + getCustomNameAndExtension();
 
         writer = creator.createWriter(fileName);
     }

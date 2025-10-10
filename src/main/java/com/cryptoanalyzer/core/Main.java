@@ -8,6 +8,7 @@ import com.cryptoanalyzer.ui.*;
 
 import java.util.ArrayList;
 
+// TODO: Change 24h -> 30d
 // TODO: Analysis manager (new exporter) + Tests
 // TODO: UML diagrams
 
@@ -26,6 +27,7 @@ public class Main {
         exporters.add(new JSONExporter());
         exporters.add(new XMLExporter());
         exporters.add(new YAMLExporter());
+        exporters.add(new AnalysisExporter());
 
         new MainPanel(sources, exporters);
 

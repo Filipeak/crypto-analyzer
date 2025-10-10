@@ -21,7 +21,7 @@ public class YAMLExporter extends FileExporter {
 
 
     @Override
-    protected String getExtension() {
+    protected String getCustomNameAndExtension() {
         return ".yml";
     }
 

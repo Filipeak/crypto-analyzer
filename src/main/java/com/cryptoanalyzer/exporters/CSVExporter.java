@@ -21,7 +21,7 @@ public class CSVExporter extends FileExporter {
 
 
     @Override
-    protected String getExtension() {
+    protected String getCustomNameAndExtension() {
         return ".csv";
     }
 

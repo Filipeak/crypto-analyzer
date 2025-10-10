@@ -24,7 +24,7 @@ public class JSONExporter extends FileExporter {
 
 
     @Override
-    protected String getExtension() {
+    protected String getCustomNameAndExtension() {
         return ".json";
     }
 
