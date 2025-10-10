@@ -1,8 +1,18 @@
 package com.newsscraper.exporters;
 
 import com.newsscraper.data.WebDataFrame;
+import com.newsscraper.files.BufferedWriterCreator;
 
 public class YAMLExporter extends FileExporter {
+
+    public YAMLExporter() {
+        super();
+    }
+
+    public YAMLExporter(BufferedWriterCreator creator) {
+        super(creator);
+    }
+
 
     @Override
     public String getName() {

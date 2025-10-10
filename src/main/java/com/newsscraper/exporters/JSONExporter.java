@@ -1,10 +1,21 @@
 package com.newsscraper.exporters;
 
 import com.newsscraper.data.WebDataFrame;
+import com.newsscraper.files.BufferedWriterCreator;
 
 public class JSONExporter extends FileExporter {
 
     private boolean isFirstFrame;
+
+
+    public JSONExporter() {
+        super();
+    }
+
+    public JSONExporter(BufferedWriterCreator creator) {
+        super(creator);
+    }
+
 
     @Override
     public String getName() {

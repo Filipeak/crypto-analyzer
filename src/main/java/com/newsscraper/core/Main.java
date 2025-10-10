@@ -8,9 +8,9 @@ import com.newsscraper.ui.*;
 
 import java.util.ArrayList;
 
-// TODO: Analysis manager (new exporter)
-// TODO: Unit tests (better abstraction for files)
+// TODO: Analysis manager (new exporter) + Tests
 // TODO: UML diagrams
+// TODO: Change repo name
 
 public class Main {
     public static void main(String[] args) {

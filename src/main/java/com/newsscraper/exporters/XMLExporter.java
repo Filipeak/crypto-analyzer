@@ -1,8 +1,18 @@
 package com.newsscraper.exporters;
 
 import com.newsscraper.data.WebDataFrame;
+import com.newsscraper.files.BufferedWriterCreator;
 
 public class XMLExporter extends FileExporter {
+
+    public XMLExporter() {
+        super();
+    }
+
+    public XMLExporter(BufferedWriterCreator creator) {
+        super(creator);
+    }
+
 
     @Override
     public String getName() {
