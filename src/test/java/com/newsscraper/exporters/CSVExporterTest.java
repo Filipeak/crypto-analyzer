@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CSVExporterTest {
 
     @Test
-    void onSetDataTest() {
+    void testOneFrameSave() {
         StringBufferedWriterCreator creator = new StringBufferedWriterCreator();
         CSVExporter exporter = new CSVExporter(creator);
 

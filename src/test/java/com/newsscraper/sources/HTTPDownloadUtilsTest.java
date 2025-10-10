@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class HTTPDownloadUtilsTest {
 
     @Test
-    void fetchTest() {
+    void testFetchExampleAPI() {
         String result = HTTPDownloadUtils.fetch("https://jsonplaceholder.typicode.com/posts/1");
 
         Assertions.assertNotNull(result);

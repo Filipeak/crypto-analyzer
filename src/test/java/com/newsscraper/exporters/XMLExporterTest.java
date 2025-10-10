@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class XMLExporterTest {
 
     @Test
-    void onSetDataTest() {
+    void testOneFrameSave() {
         StringBufferedWriterCreator creator = new StringBufferedWriterCreator();
         XMLExporter exporter = new XMLExporter(creator);
 

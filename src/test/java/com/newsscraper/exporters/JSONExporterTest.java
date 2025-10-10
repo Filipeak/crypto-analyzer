@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JSONExporterTest {
 
     @Test
-    void onSetDataTest() {
+    void testOneFrameSave() {
         StringBufferedWriterCreator creator = new StringBufferedWriterCreator();
         JSONExporter exporter = new JSONExporter(creator);
 

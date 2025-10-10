@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CoinbaseDownloaderTest {
 
     @Test
-    void downloadFromWeb() {
+    void testDownloadFromCoinbase() {
         DownloadDummy dummy = new DownloadDummy();
 
         DataManager.getInstance().addObserver(dummy);

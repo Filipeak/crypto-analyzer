@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class YAMLExporterTest {
 
     @Test
-    void onSetDataTest() {
+    void testOneFrameSave() {
         StringBufferedWriterCreator creator = new StringBufferedWriterCreator();
         YAMLExporter exporter = new YAMLExporter(creator);
 

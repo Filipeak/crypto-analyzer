@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BinanceDownloaderTest {
 
     @Test
-    void downloadFromWebTest() {
+    void testDownloadFromBinance() {
         DownloadDummy dummy = new DownloadDummy();
 
         DataManager.getInstance().addObserver(dummy);
