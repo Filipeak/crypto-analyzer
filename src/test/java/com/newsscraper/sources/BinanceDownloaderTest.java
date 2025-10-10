@@ -21,6 +21,7 @@ class BinanceDownloaderTest {
         WebSourceStatus status = downloader.downloadFromWeb();
 
         assertEquals(WebSourceStatus.SUCCESS, status);
+        assertEquals(24, dummy.count);
 
         DataManager.getInstance().flushRepo();
     }
