@@ -19,24 +19,20 @@ public final class Logger {
     }
 
 
-    public Logger() {
+    private Logger() {
         sinks = new HashSet<>();
         currentLevel = LoggingLevel.DEBUG;
     }
 
 
+    public void setLevel(LoggingLevel level) {
+        currentLevel = level;
+    }
+
     public void addSink(LoggingSink sink) {
         sinks.add(sink);
     }
 
-    public void removeSink(LoggingSink sink) {
-        sinks.remove(sink);
-    }
-
-
-    public static void setLevel(LoggingLevel level) {
-        getInstance().currentLevel = level;
-    }
 
     public static void debug(String message) {
         if (getInstance().currentLevel.ordinal() > LoggingLevel.DEBUG.ordinal()) {

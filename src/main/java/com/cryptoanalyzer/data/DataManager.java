@@ -19,7 +19,7 @@ public final class DataManager {
     }
 
 
-    public DataManager() {
+    private DataManager() {
         observers = new HashSet<>();
     }
 

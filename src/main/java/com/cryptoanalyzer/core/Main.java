@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Logger.setLevel(LoggingLevel.DEBUG);
+        Logger.getInstance().setLevel(LoggingLevel.DEBUG);
         Logger.getInstance().addSink(new ConsoleLoggingSink());
         Logger.getInstance().addSink(new FileLoggingSink());
 
