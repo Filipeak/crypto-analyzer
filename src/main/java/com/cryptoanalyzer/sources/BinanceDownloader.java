@@ -19,7 +19,7 @@ public class BinanceDownloader implements WebSource {
     // REF: https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Kline-Candlestick-Data
     @Override
     public WebSourceStatus downloadFromWeb() {
-        String jsonStr = HTTPDownloadUtils.fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=24");
+        String jsonStr = HTTPDownloadUtils.fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=720");
 
         if (jsonStr == null) {
             return WebSourceStatus.FAILURE_NO_INTERNET;

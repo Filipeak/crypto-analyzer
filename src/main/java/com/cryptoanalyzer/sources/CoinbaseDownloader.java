@@ -22,35 +22,40 @@ public class CoinbaseDownloader implements WebSource {
     @Override
     public WebSourceStatus downloadFromWeb() {
         Instant end = Instant.now();
-        Instant start = end.minusSeconds(24 * 60 * 60);
-        String jsonStr = HTTPDownloadUtils.fetch(String.format("https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=%s&end=%s", start, end));
+        Instant start = end.minusSeconds(10 * 24 * 60 * 60);
 
-        if (jsonStr == null) {
-            return WebSourceStatus.FAILURE_NO_INTERNET;
-        }
+        for (int part = 0; part < 3; part++) {
+            String jsonStr = HTTPDownloadUtils.fetch(String.format("https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=%s&end=%s", start, end));
+            end = start;
+            start = end.minusSeconds(10 * 24 * 60 * 60);
 
-        try {
-            JSONArray jsonArray = new JSONArray(jsonStr);
-
-            for (int i = jsonArray.length() - 1; i >= 0; i--) {
-                JSONArray element = jsonArray.getJSONArray(i);
-
-                DataManager.getInstance().pushWebDataFrame(new WebDataFrame(
-                        "BTC_USD",
-                        element.getInt(0),
-                        element.getFloat(3),
-                        element.getFloat(4),
-                        element.getFloat(2),
-                        element.getFloat(1),
-                        element.getFloat(5)
-                ));
+            if (jsonStr == null) {
+                return WebSourceStatus.FAILURE_NO_INTERNET;
             }
 
-            return WebSourceStatus.SUCCESS;
-        } catch (JSONException e) {
-            Logger.error(e.getMessage());
+            try {
+                JSONArray jsonArray = new JSONArray(jsonStr);
 
-            return WebSourceStatus.FAILURE_NO_DATA;
+                for (int i = jsonArray.length() - 1; i >= 0; i--) {
+                    JSONArray element = jsonArray.getJSONArray(i);
+
+                    DataManager.getInstance().pushWebDataFrame(new WebDataFrame(
+                            "BTC_USD",
+                            element.getInt(0),
+                            element.getFloat(3),
+                            element.getFloat(4),
+                            element.getFloat(2),
+                            element.getFloat(1),
+                            element.getFloat(5)
+                    ));
+                }
+            } catch (JSONException e) {
+                Logger.error(e.getMessage());
+
+                return WebSourceStatus.FAILURE_NO_DATA;
+            }
         }
+
+        return WebSourceStatus.SUCCESS;
     }
 }

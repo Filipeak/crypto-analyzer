@@ -3,18 +3,6 @@ package com.cryptoanalyzer.exporters;
 import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.files.BufferedWriterCreator;
 
-/**
- * TODO:
- *  - Standard deviation (=Volatility)
- *  - Average price
- *  - SMA
- *  - Price change in %
- *  - Momentum (close - open)
- *  - Single volatility (high - low)
- *  - Total volume
- *  - Average volume
- *  - Volume trend
- */
 public class AnalysisExporter extends FileExporter {
 
     public AnalysisExporter() {
