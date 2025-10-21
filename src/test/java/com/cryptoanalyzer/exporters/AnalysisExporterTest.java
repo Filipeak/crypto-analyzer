@@ -28,7 +28,7 @@ class AnalysisExporterTest {
                 
                 ====== PRICE =======
                 - Change: 50.0%
-                - Volatility: 0.57735026
+                - Monthly Volatility: 0.57735026 = 3.8490016%
                 """;
 
         assertEquals(expected, creator.getString());
