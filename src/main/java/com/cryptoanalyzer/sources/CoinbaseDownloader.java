@@ -23,6 +23,8 @@ public class CoinbaseDownloader implements WebSource {
     public WebSourceStatus downloadFromWeb() {
         Instant end = Instant.now();
         Instant start = end.minusSeconds(10 * 24 * 60 * 60);
+        WebDataFrame[] reversedData = new WebDataFrame[720];
+        int currentIndex = 0;
 
         for (int part = 0; part < 3; part++) {
             String jsonStr = HTTPDownloadUtils.fetch(String.format("https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=%s&end=%s", start, end));
@@ -36,10 +38,10 @@ public class CoinbaseDownloader implements WebSource {
             try {
                 JSONArray jsonArray = new JSONArray(jsonStr);
 
-                for (int i = jsonArray.length() - 1; i >= 0; i--) {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONArray element = jsonArray.getJSONArray(i);
 
-                    DataManager.getInstance().pushWebDataFrame(new WebDataFrame(
+                    reversedData[currentIndex++] = new WebDataFrame(
                             "BTC_USD",
                             element.getInt(0),
                             element.getFloat(3),
@@ -47,13 +49,17 @@ public class CoinbaseDownloader implements WebSource {
                             element.getFloat(2),
                             element.getFloat(1),
                             element.getFloat(5)
-                    ));
+                    );
                 }
             } catch (JSONException e) {
                 Logger.error(e.getMessage());
 
                 return WebSourceStatus.FAILURE_NO_DATA;
             }
+        }
+
+        for (int i = reversedData.length - 1; i >= 0; i--) {
+            DataManager.getInstance().pushWebDataFrame(reversedData[i]);
         }
 
         return WebSourceStatus.SUCCESS;
