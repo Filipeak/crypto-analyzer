@@ -1,15 +1,15 @@
-package com.cryptoanalyzer.exporters;
+package com.cryptoanalyzer.services;
 
 import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.files.BufferedWriterCreator;
 
-public class YAMLExporter extends FileExporter {
+public class YAMLExporterService extends FileExporterService {
 
-    public YAMLExporter() {
+    public YAMLExporterService() {
         super();
     }
 
-    public YAMLExporter(BufferedWriterCreator creator) {
+    public YAMLExporterService(BufferedWriterCreator creator) {
         super(creator);
     }
 

@@ -1,7 +1,7 @@
 package com.cryptoanalyzer.core;
 
 import com.cryptoanalyzer.data.*;
-import com.cryptoanalyzer.exporters.*;
+import com.cryptoanalyzer.services.*;
 import com.cryptoanalyzer.logging.*;
 import com.cryptoanalyzer.sources.*;
 import com.cryptoanalyzer.ui.*;
@@ -14,18 +14,18 @@ public class Main {
         Logger.getInstance().addSink(new ConsoleLoggingSink());
         Logger.getInstance().addSink(new FileLoggingSink());
 
-        ArrayList<WebSource> sources = new ArrayList<>();
+        ArrayList<WebDataSource> sources = new ArrayList<>();
         sources.add(new BinanceDownloader());
         sources.add(new CoinbaseDownloader());
 
-        ArrayList<Exporter> exporters = new ArrayList<>();
-        exporters.add(new CSVExporter());
-        exporters.add(new JSONExporter());
-        exporters.add(new XMLExporter());
-        exporters.add(new YAMLExporter());
-        exporters.add(new AnalysisExporter());
+        ArrayList<DataService> services = new ArrayList<>();
+        services.add(new CSVExporterService());
+        services.add(new JSONExporterService());
+        services.add(new XMLExporterService());
+        services.add(new YAMLExporterService());
+        services.add(new AnalysisExporterService());
 
-        new MainPanel(sources, exporters);
+        new MainPanel(sources, services);
 
         Logger.info("Init successful");
     }

@@ -1,18 +1,18 @@
-package com.cryptoanalyzer.exporters;
+package com.cryptoanalyzer.services;
 
 import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.files.BufferedWriterCreator;
 
-public class JSONExporter extends FileExporter {
+public class JSONExporterService extends FileExporterService {
 
     private boolean isFirstFrame;
 
 
-    public JSONExporter() {
+    public JSONExporterService() {
         super();
     }
 
-    public JSONExporter(BufferedWriterCreator creator) {
+    public JSONExporterService(BufferedWriterCreator creator) {
         super(creator);
     }
 

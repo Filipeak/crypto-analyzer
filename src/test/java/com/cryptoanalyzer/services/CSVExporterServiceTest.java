@@ -1,4 +1,4 @@
-package com.cryptoanalyzer.exporters;
+package com.cryptoanalyzer.services;
 
 import com.cryptoanalyzer.data.DataManager;
 import com.cryptoanalyzer.data.WebDataFrame;
@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CSVExporterTest {
+class CSVExporterServiceTest {
 
     @Test
     void testOneFrameSave() {
         StringBufferedWriterCreator creator = new StringBufferedWriterCreator();
-        CSVExporter exporter = new CSVExporter(creator);
+        CSVExporterService exporter = new CSVExporterService(creator);
 
         DataManager.getInstance().addObserver(exporter);
         DataManager.getInstance().initRepo();

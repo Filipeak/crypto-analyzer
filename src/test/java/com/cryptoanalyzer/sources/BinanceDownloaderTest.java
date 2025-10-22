@@ -3,7 +3,7 @@ package com.cryptoanalyzer.sources;
 import com.cryptoanalyzer.data.DataManager;
 import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.data.WebDataReceiver;
-import com.cryptoanalyzer.data.WebSourceStatus;
+import com.cryptoanalyzer.data.WebDataSourceStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,9 +18,9 @@ class BinanceDownloaderTest {
         DataManager.getInstance().initRepo();
 
         BinanceDownloader downloader = new BinanceDownloader();
-        WebSourceStatus status = downloader.downloadFromWeb();
+        WebDataSourceStatus status = downloader.downloadFromWeb();
 
-        assertEquals(WebSourceStatus.SUCCESS, status);
+        assertEquals(WebDataSourceStatus.SUCCESS, status);
         assertEquals(720, dummy.count);
 
         DataManager.getInstance().flushRepo();

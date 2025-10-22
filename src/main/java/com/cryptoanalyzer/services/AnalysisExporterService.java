@@ -1,11 +1,11 @@
-package com.cryptoanalyzer.exporters;
+package com.cryptoanalyzer.services;
 
 import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.files.BufferedWriterCreator;
 
 import java.util.ArrayList;
 
-public class AnalysisExporter extends FileExporter {
+public class AnalysisExporterService extends FileExporterService {
 
     private int count;
     private float totalVolume;
@@ -13,11 +13,11 @@ public class AnalysisExporter extends FileExporter {
     private final ArrayList<Float> pricesClose = new ArrayList<>();
 
 
-    public AnalysisExporter() {
+    public AnalysisExporterService() {
         super();
     }
 
-    public AnalysisExporter(BufferedWriterCreator creator) {
+    public AnalysisExporterService(BufferedWriterCreator creator) {
         super(creator);
     }
 

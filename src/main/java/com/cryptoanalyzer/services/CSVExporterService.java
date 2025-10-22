@@ -1,15 +1,15 @@
-package com.cryptoanalyzer.exporters;
+package com.cryptoanalyzer.services;
 
 import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.files.BufferedWriterCreator;
 
-public class CSVExporter extends FileExporter {
+public class CSVExporterService extends FileExporterService {
 
-    public CSVExporter() {
+    public CSVExporterService() {
         super();
     }
 
-    public CSVExporter(BufferedWriterCreator creator) {
+    public CSVExporterService(BufferedWriterCreator creator) {
         super(creator);
     }
 

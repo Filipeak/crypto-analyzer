@@ -1,9 +1,9 @@
 package com.cryptoanalyzer.ui;
 
 import com.cryptoanalyzer.data.DataManager;
-import com.cryptoanalyzer.data.WebSource;
-import com.cryptoanalyzer.data.WebSourceStatus;
-import com.cryptoanalyzer.exporters.Exporter;
+import com.cryptoanalyzer.data.WebDataSource;
+import com.cryptoanalyzer.data.WebDataSourceStatus;
+import com.cryptoanalyzer.services.DataService;
 import com.cryptoanalyzer.logging.Logger;
 
 import javax.swing.*;
@@ -14,11 +14,11 @@ import java.util.List;
 public class MainPanel {
 
     private final JFrame window;
-    private final List<WebSource> sources;
-    private final List<Exporter> exporters;
-    private WebSource currentSource;
+    private final List<WebDataSource> sources;
+    private final List<DataService> services;
+    private WebDataSource currentSource;
 
-    public MainPanel(List<WebSource> sources, List<Exporter> exporters) {
+    public MainPanel(List<WebDataSource> sources, List<DataService> services) {
         window = new JFrame();
         window.setTitle("Crypto downloader");
         window.setSize(500, 400);
@@ -34,12 +34,12 @@ public class MainPanel {
         Logger.info("Created window");
 
         this.sources = sources;
-        this.exporters = exporters;
+        this.services = services;
 
         setupButton();
         setupPagesReadText();
         setupSources();
-        setupExporters();
+        setupServices();
 
         window.setLayout(null);
         window.setVisible(true);
@@ -59,7 +59,7 @@ public class MainPanel {
 
                 DataManager.getInstance().initRepo();
 
-                WebSourceStatus status = currentSource.downloadFromWeb();
+                WebDataSourceStatus status = currentSource.downloadFromWeb();
 
                 showStatusPanel(status);
 
@@ -103,19 +103,19 @@ public class MainPanel {
         Logger.info("Setup of sources buttons complete!");
     }
 
-    private void setupExporters() {
-        for (int i = 0; i < exporters.size(); i++) {
+    private void setupServices() {
+        for (int i = 0; i < services.size(); i++) {
             final int btnIndex = i;
 
-            JCheckBox checkbox = new JCheckBox(exporters.get(btnIndex).getName());
+            JCheckBox checkbox = new JCheckBox(services.get(btnIndex).getName());
             checkbox.setBounds(300, i * 40, 250, 60);
             checkbox.addActionListener(e -> {
-                Logger.debug("Checkbox '" + exporters.get(btnIndex).getName() + "' selected: " + checkbox.isSelected());
+                Logger.debug("Checkbox '" + services.get(btnIndex).getName() + "' selected: " + checkbox.isSelected());
 
                 if (checkbox.isSelected()) {
-                    DataManager.getInstance().addObserver(exporters.get(btnIndex));
+                    DataManager.getInstance().addObserver(services.get(btnIndex));
                 } else {
-                    DataManager.getInstance().removeObserver(exporters.get(btnIndex));
+                    DataManager.getInstance().removeObserver(services.get(btnIndex));
                 }
             });
             checkbox.doClick();
@@ -123,14 +123,14 @@ public class MainPanel {
             window.add(checkbox);
         }
 
-        Logger.info("Setup of exporters buttons complete!");
+        Logger.info("Setup of services buttons complete!");
     }
 
-    private void showStatusPanel(WebSourceStatus status) {
+    private void showStatusPanel(WebDataSourceStatus status) {
         String messageText = switch (status) {
-            case WebSourceStatus.SUCCESS -> "Success";
-            case WebSourceStatus.FAILURE_NO_INTERNET -> "No internet connection";
-            case WebSourceStatus.FAILURE_NO_DATA -> "No data! Unexpected error occurred.";
+            case WebDataSourceStatus.SUCCESS -> "Success";
+            case WebDataSourceStatus.FAILURE_NO_INTERNET -> "No internet connection";
+            case WebDataSourceStatus.FAILURE_NO_DATA -> "No data! Unexpected error occurred.";
         };
 
         JOptionPane.showMessageDialog(window, messageText);

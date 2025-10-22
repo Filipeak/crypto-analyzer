@@ -2,15 +2,15 @@ package com.cryptoanalyzer.sources;
 
 import com.cryptoanalyzer.data.DataManager;
 import com.cryptoanalyzer.data.WebDataFrame;
-import com.cryptoanalyzer.data.WebSource;
-import com.cryptoanalyzer.data.WebSourceStatus;
+import com.cryptoanalyzer.data.WebDataSource;
+import com.cryptoanalyzer.data.WebDataSourceStatus;
 import com.cryptoanalyzer.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.time.Instant;
 
-public class CoinbaseDownloader implements WebSource {
+public class CoinbaseDownloader implements WebDataSource {
 
     @Override
     public String getName() {
@@ -20,7 +20,7 @@ public class CoinbaseDownloader implements WebSource {
 
     // REF: https://docs.cdp.coinbase.com/api-reference/exchange-api/rest-api/products/get-product-candles
     @Override
-    public WebSourceStatus downloadFromWeb() {
+    public WebDataSourceStatus downloadFromWeb() {
         Instant end = Instant.now();
         Instant start = end.minusSeconds(10 * 24 * 60 * 60);
         WebDataFrame[] reversedData = new WebDataFrame[720];
@@ -32,7 +32,7 @@ public class CoinbaseDownloader implements WebSource {
             start = end.minusSeconds(10 * 24 * 60 * 60);
 
             if (jsonStr == null) {
-                return WebSourceStatus.FAILURE_NO_INTERNET;
+                return WebDataSourceStatus.FAILURE_NO_INTERNET;
             }
 
             try {
@@ -54,7 +54,7 @@ public class CoinbaseDownloader implements WebSource {
             } catch (JSONException e) {
                 Logger.error(e.getMessage());
 
-                return WebSourceStatus.FAILURE_NO_DATA;
+                return WebDataSourceStatus.FAILURE_NO_DATA;
             }
         }
 
@@ -62,6 +62,6 @@ public class CoinbaseDownloader implements WebSource {
             DataManager.getInstance().pushWebDataFrame(reversedData[i]);
         }
 
-        return WebSourceStatus.SUCCESS;
+        return WebDataSourceStatus.SUCCESS;
     }
 }

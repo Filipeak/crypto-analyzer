@@ -1,4 +1,4 @@
-package com.cryptoanalyzer.exporters;
+package com.cryptoanalyzer.services;
 
 import com.cryptoanalyzer.files.FileBufferedWriterCreator;
 import com.cryptoanalyzer.files.BufferedWriterCreator;
@@ -10,7 +10,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class FileExporter implements Exporter {
+public abstract class FileExporterService implements DataService {
 
     private static final String BASE_DIR = "reports/";
 
@@ -18,11 +18,11 @@ public abstract class FileExporter implements Exporter {
     private BufferedWriter writer;
 
 
-    public FileExporter() {
+    public FileExporterService() {
         this.creator = new FileBufferedWriterCreator();
     }
 
-    public FileExporter(BufferedWriterCreator creator) {
+    public FileExporterService(BufferedWriterCreator creator) {
         this.creator = creator;
     }
 

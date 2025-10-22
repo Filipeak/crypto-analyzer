@@ -2,13 +2,13 @@ package com.cryptoanalyzer.sources;
 
 import com.cryptoanalyzer.data.DataManager;
 import com.cryptoanalyzer.data.WebDataFrame;
-import com.cryptoanalyzer.data.WebSource;
-import com.cryptoanalyzer.data.WebSourceStatus;
+import com.cryptoanalyzer.data.WebDataSource;
+import com.cryptoanalyzer.data.WebDataSourceStatus;
 import com.cryptoanalyzer.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class BinanceDownloader implements WebSource {
+public class BinanceDownloader implements WebDataSource {
 
     @Override
     public String getName() {
@@ -18,11 +18,11 @@ public class BinanceDownloader implements WebSource {
 
     // REF: https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Kline-Candlestick-Data
     @Override
-    public WebSourceStatus downloadFromWeb() {
+    public WebDataSourceStatus downloadFromWeb() {
         String jsonStr = HTTPDownloadUtils.fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=720");
 
         if (jsonStr == null) {
-            return WebSourceStatus.FAILURE_NO_INTERNET;
+            return WebDataSourceStatus.FAILURE_NO_INTERNET;
         }
 
         try {
@@ -42,11 +42,11 @@ public class BinanceDownloader implements WebSource {
                 ));
             }
 
-            return WebSourceStatus.SUCCESS;
+            return WebDataSourceStatus.SUCCESS;
         } catch (JSONException e) {
             Logger.error(e.getMessage());
 
-            return WebSourceStatus.FAILURE_NO_DATA;
+            return WebDataSourceStatus.FAILURE_NO_DATA;
         }
     }
 }
