@@ -21,7 +21,7 @@ public class MainPanel {
     public MainPanel(List<WebDataSource> sources, List<DataService> services) {
         window = new JFrame();
         window.setTitle("Crypto downloader");
-        window.setSize(500, 400);
+        window.setSize(500, 600);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.addWindowListener(new WindowAdapter() {
             @Override
@@ -52,7 +52,7 @@ public class MainPanel {
 
         JButton startButton = new JButton("START");
 
-        startButton.setBounds(window.getWidth() / 2 - buttonWidth / 2, 250, buttonWidth, 50);
+        startButton.setBounds(window.getWidth() / 2 - buttonWidth / 2, 450, buttonWidth, 50);
         startButton.addActionListener(e -> {
             if (currentSource != null) {
                 Logger.info("Starting News Scraper...");

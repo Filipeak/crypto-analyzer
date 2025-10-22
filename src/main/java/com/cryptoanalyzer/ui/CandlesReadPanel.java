@@ -16,7 +16,7 @@ public class CandlesReadPanel implements WebDataReceiver {
         final int textWidth = 250;
 
         textLabel = new JLabel("", SwingConstants.CENTER);
-        textLabel.setBounds(window.getWidth() / 2 - textWidth / 2, 300, textWidth, 50);
+        textLabel.setBounds(window.getWidth() / 2 - textWidth / 2, 500, textWidth, 50);
 
         updateCounterText();
 
