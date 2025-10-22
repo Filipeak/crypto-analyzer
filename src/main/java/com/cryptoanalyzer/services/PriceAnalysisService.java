@@ -21,6 +21,40 @@ public class PriceAnalysisService extends FileExporterService {
     }
 
 
+    private float calculateMeanPrice() {
+        float mean = 0;
+
+        for (float price : pricesClose) {
+            mean += price;
+        }
+
+        mean /= count;
+
+        return mean;
+    }
+
+    private float calculatePriceVariance(float mean) {
+        float variance = 0;
+
+        for (float price : pricesClose) {
+            float diff = price - mean;
+            variance += diff * diff;
+        }
+
+        variance /= count;
+
+        return variance;
+    }
+
+    private float calculateVolatility(float var) {
+        float std = (float) Math.sqrt(var);
+        float t = (float) count / 24;
+        float volatility = std * (float) Math.sqrt(t);
+
+        return volatility;
+    }
+
+
     @Override
     public String getName() {
         return "Price Analysis";
@@ -51,30 +85,29 @@ public class PriceAnalysisService extends FileExporterService {
 
     @Override
     public void onEnd() {
-        float changePercentage = (pricesClose.getLast() - pricesOpen.getFirst()) / pricesOpen.getFirst() * 100;
+        float totalReturn = (pricesClose.getLast() - pricesOpen.getFirst()) / pricesOpen.getFirst();
+        float averageReturn = 0;
+        float maxReturn = 0;
 
-        writeToFile("- Change: " + changePercentage + "%\n");
+        for (int i = 0; i < pricesClose.size(); i++) {
+            float diff = (pricesClose.get(i) - pricesOpen.get(i)) / pricesOpen.get(i);
 
-        float mean = 0;
+            if (diff > maxReturn) {
+                maxReturn = diff;
+            }
 
-        for (float price : pricesClose) {
-            mean += price;
+            averageReturn += diff;
         }
 
-        mean /= count;
+        averageReturn /= count;
 
-        float variance = 0;
+        writeToFile("- Total Change: " + totalReturn * 100 + "%\n");
+        writeToFile("- Average Change: " + averageReturn * 100 + "%\n");
+        writeToFile("- Max Change: " + maxReturn * 100 + "%\n");
 
-        for (float price : pricesClose) {
-            float diff = price - mean;
-            variance += diff * diff;
-        }
-
-        variance /= count;
-
-        float std = (float) Math.sqrt(variance);
-        float t = (float) count / 24;
-        float volatility = std * (float) Math.sqrt(t);
+        float mean = calculateMeanPrice();
+        float var = calculatePriceVariance(mean);
+        float volatility = calculateVolatility(var);
         float volatilityPercentage = volatility / pricesClose.getLast() * 100;
 
         writeToFile("- Monthly Volatility: " + volatility + " = " + volatilityPercentage + "%\n");

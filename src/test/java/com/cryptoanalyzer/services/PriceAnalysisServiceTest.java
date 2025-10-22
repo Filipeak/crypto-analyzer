@@ -22,7 +22,9 @@ class PriceAnalysisServiceTest {
         DataManager.getInstance().flushRepo();
 
         final String expected = """
-                - Change: 50.0%
+                - Total Change: 50.0%
+                - Average Change: 29.999998%
+                - Max Change: 50.0%
                 - Monthly Volatility: 0.57735026 = 3.8490016%
                 """;
 
