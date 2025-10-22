@@ -36,8 +36,8 @@ public class BinanceDownloader implements WebSource {
                         (int)(element.getLong(0) / 1000),
                         element.getFloat(1),
                         element.getFloat(4),
-                        element.getFloat(3),
                         element.getFloat(2),
+                        element.getFloat(3),
                         element.getFloat(5)
                 ));
             }
