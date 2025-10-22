@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AnalysisExporterServiceTest {
+class VolumeAnalysisServiceTest {
 
     @Test
     void testOneFrameSave() {
         StringBufferedWriterCreator creator = new StringBufferedWriterCreator();
-        AnalysisExporterService exporter = new AnalysisExporterService(creator);
+        VolumeAnalysisService exporter = new VolumeAnalysisService(creator);
 
         DataManager.getInstance().addObserver(exporter);
         DataManager.getInstance().initRepo();
@@ -22,13 +22,8 @@ class AnalysisExporterServiceTest {
         DataManager.getInstance().flushRepo();
 
         final String expected = """
-                ====== VOLUME =======
                 - Total Volume: 9.0
                 - Average Volume: 3.0
-                
-                ====== PRICE =======
-                - Change: 50.0%
-                - Monthly Volatility: 0.57735026 = 3.8490016%
                 """;
 
         assertEquals(expected, creator.getString());

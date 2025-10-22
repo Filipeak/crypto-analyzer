@@ -5,39 +5,37 @@ import com.cryptoanalyzer.files.BufferedWriterCreator;
 
 import java.util.ArrayList;
 
-public class AnalysisExporterService extends FileExporterService {
+public class PriceAnalysisService extends FileExporterService {
 
     private int count;
-    private float totalVolume;
     private final ArrayList<Float> pricesOpen = new ArrayList<>();
     private final ArrayList<Float> pricesClose = new ArrayList<>();
 
 
-    public AnalysisExporterService() {
+    public PriceAnalysisService() {
         super();
     }
 
-    public AnalysisExporterService(BufferedWriterCreator creator) {
+    public PriceAnalysisService(BufferedWriterCreator creator) {
         super(creator);
     }
 
 
     @Override
     public String getName() {
-        return "Analysis Exporter";
+        return "Price Analysis";
     }
 
 
     @Override
     protected String getCustomNameAndExtension() {
-        return "_analysis.txt";
+        return "_priceAnalysis.txt";
     }
 
 
     @Override
     public void onBegin() {
         count = 0;
-        totalVolume = 0;
         pricesOpen.clear();
         pricesClose.clear();
 
@@ -47,21 +45,12 @@ public class AnalysisExporterService extends FileExporterService {
     @Override
     public void onSetData(WebDataFrame frame) {
         count++;
-        totalVolume += frame.volume;
         pricesOpen.add(frame.open);
         pricesClose.add(frame.close);
     }
 
     @Override
     public void onEnd() {
-        writeToFile("====== VOLUME =======\n");
-        writeToFile("- Total Volume: " + totalVolume + "\n");
-        writeToFile("- Average Volume: " + totalVolume / count + "\n");
-
-        writeToFile("\n");
-
-        writeToFile("====== PRICE =======\n");
-
         float changePercentage = (pricesClose.getLast() - pricesOpen.getFirst()) / pricesOpen.getFirst() * 100;
 
         writeToFile("- Change: " + changePercentage + "%\n");
