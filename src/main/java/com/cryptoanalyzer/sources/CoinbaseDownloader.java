@@ -42,6 +42,7 @@ public class CoinbaseDownloader implements WebDataSource {
                     JSONArray element = jsonArray.getJSONArray(i);
 
                     reversedData[currentIndex++] = new WebDataFrame(
+                            "Coinbase",
                             "BTC_USD",
                             element.getInt(0),
                             element.getFloat(3),

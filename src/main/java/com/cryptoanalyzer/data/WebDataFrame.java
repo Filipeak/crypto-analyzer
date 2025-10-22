@@ -1,6 +1,7 @@
 package com.cryptoanalyzer.data;
 
 public class WebDataFrame {
+    public String source;
     public String symbol;
     public int timestamp;
     public float open;
@@ -9,7 +10,8 @@ public class WebDataFrame {
     public float low;
     public float volume;
 
-    public WebDataFrame(String symbol, int timestamp, float open, float close, float high, float low, float volume) {
+    public WebDataFrame(String source, String symbol, int timestamp, float open, float close, float high, float low, float volume) {
+        this.source = source;
         this.symbol = symbol;
         this.timestamp = timestamp;
         this.open = open;

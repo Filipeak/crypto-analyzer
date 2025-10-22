@@ -30,12 +30,12 @@ public class CSVExporterService extends FileExporterService {
     public void onBegin() {
         super.onBegin();
 
-        writeToFile("symbol,timestamp,open,close,high,low,volume\n");
+        writeToFile("source,symbol,timestamp,open,close,high,low,volume\n");
     }
 
     @Override
     public void onSetData(WebDataFrame frame) {
-        String content = frame.symbol + "," + frame.timestamp + "," + frame.open + "," + frame.close + "," + frame.high + "," + frame.low + "," + frame.volume + "\n";
+        String content = frame.source + "," + frame.symbol + "," + frame.timestamp + "," + frame.open + "," + frame.close + "," + frame.high + "," + frame.low + "," + frame.volume + "\n";
 
         writeToFile(content);
     }

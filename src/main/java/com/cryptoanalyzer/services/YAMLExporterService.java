@@ -29,6 +29,7 @@ public class YAMLExporterService extends FileExporterService {
     @Override
     public void onSetData(WebDataFrame frame) {
         String content = "-\n" +
+                "  source: " + frame.source + "\n" +
                 "  symbol: " + frame.symbol + "\n" +
                 "  timestamp: " + frame.timestamp + "\n" +
                 "  open: " + frame.open + "\n" +

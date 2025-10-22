@@ -41,6 +41,7 @@ public class XMLExporterService extends FileExporterService {
     @Override
     public void onSetData(WebDataFrame frame) {
         String content = "\t<frame>\n" +
+                "\t\t<source>" + frame.source + "</source>\n" +
                 "\t\t<symbol>" + frame.symbol + "</symbol>\n" +
                 "\t\t<timestamp>" + frame.timestamp + "</timestamp>\n" +
                 "\t\t<open>" + frame.open + "</open>\n" +

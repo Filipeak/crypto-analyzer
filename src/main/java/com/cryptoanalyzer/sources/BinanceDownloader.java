@@ -32,6 +32,7 @@ public class BinanceDownloader implements WebDataSource {
                 JSONArray element = jsonArray.getJSONArray(i);
 
                 DataManager.getInstance().pushWebDataFrame(new WebDataFrame(
+                        "Binance",
                         "BTC_USD",
                         (int)(element.getLong(0) / 1000),
                         element.getFloat(1),

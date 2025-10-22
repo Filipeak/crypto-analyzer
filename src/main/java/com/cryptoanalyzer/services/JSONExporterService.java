@@ -42,6 +42,7 @@ public class JSONExporterService extends FileExporterService {
     public void onSetData(WebDataFrame frame) {
         String forwardLine = isFirstFrame ? "" : ",\n";
         String content = "\t{\n" +
+                "\t\t\"source\": \"" + frame.source + "\",\n" +
                 "\t\t\"symbol\": \"" + frame.symbol + "\",\n" +
                 "\t\t\"timestamp\": " + frame.timestamp + ",\n" +
                 "\t\t\"open\": " + frame.open + ",\n" +

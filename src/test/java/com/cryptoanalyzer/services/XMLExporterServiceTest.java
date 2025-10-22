@@ -16,13 +16,14 @@ class XMLExporterServiceTest {
 
         DataManager.getInstance().addObserver(exporter);
         DataManager.getInstance().initRepo();
-        DataManager.getInstance().pushWebDataFrame(new WebDataFrame("BTC_USD", 1700000000, 10, 11, 20, 4, 3));
+        DataManager.getInstance().pushWebDataFrame(new WebDataFrame("Binance", "BTC_USD", 1700000000, 10, 11, 20, 4, 3));
         DataManager.getInstance().flushRepo();
 
         final String expected = """
                 <?xml version="1.0" encoding="utf-8"?>
                 <frames>
                 	<frame>
+                		<source>Binance</source>
                 		<symbol>BTC_USD</symbol>
                 		<timestamp>1700000000</timestamp>
                 		<open>10.0</open>
