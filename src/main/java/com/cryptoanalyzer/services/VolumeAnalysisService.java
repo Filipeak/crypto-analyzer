@@ -46,8 +46,21 @@ public class VolumeAnalysisService extends FileExporterService {
 
     @Override
     public void onEnd() {
+        if (count == 0 || count % 24 != 0) {
+            writeToFile("INVALID DATA");
+
+            super.onEnd();
+
+            return;
+        }
+
+        int days = Math.max(count / 24, 1);
+        float avgHourlyVolume = totalVolume / count;
+        float avgDailyVolume = totalVolume / days;
+
         writeToFile("- Total Volume: " + totalVolume + "\n");
-        writeToFile("- Average Volume: " + totalVolume / count + "\n");
+        writeToFile("- Average Daily Volume: " + avgDailyVolume + "\n");
+        writeToFile("- Average Hourly Volume: " + avgHourlyVolume + "\n");
 
         super.onEnd();
     }

@@ -49,9 +49,8 @@ public class PriceAnalysisService extends FileExporterService {
     private float calculateVolatility(float var) {
         float std = (float) Math.sqrt(var);
         float t = (float) count / 24;
-        float volatility = std * (float) Math.sqrt(t);
 
-        return volatility;
+        return std * (float) Math.sqrt(t);
     }
 
 
@@ -85,12 +84,20 @@ public class PriceAnalysisService extends FileExporterService {
 
     @Override
     public void onEnd() {
+        if (count == 0 || count % 24 != 0 || count != pricesOpen.size() || count != pricesClose.size()) {
+            writeToFile("INVALID DATA");
+
+            super.onEnd();
+
+            return;
+        }
+
         float totalReturn = (pricesClose.getLast() - pricesOpen.getFirst()) / pricesOpen.getFirst();
         float averageReturn = 0;
         float maxReturn = 0;
 
-        for (int i = 0; i < pricesClose.size(); i++) {
-            float diff = (pricesClose.get(i) - pricesOpen.get(i)) / pricesOpen.get(i);
+        for (int i = 0; i < pricesClose.size(); i += 24) {
+            float diff = (pricesClose.get(i + 23) - pricesOpen.get(i)) / pricesOpen.get(i);
 
             if (diff > maxReturn) {
                 maxReturn = diff;
@@ -99,11 +106,11 @@ public class PriceAnalysisService extends FileExporterService {
             averageReturn += diff;
         }
 
-        averageReturn /= count;
+        averageReturn /= (float) count / 24;
 
         writeToFile("- Total Change: " + totalReturn * 100 + "%\n");
-        writeToFile("- Average Change: " + averageReturn * 100 + "%\n");
-        writeToFile("- Max Change: " + maxReturn * 100 + "%\n");
+        writeToFile("- Average Daily Change: " + averageReturn * 100 + "%\n");
+        writeToFile("- Max Daily Change: " + maxReturn * 100 + "%\n");
 
         float mean = calculateMeanPrice();
         float var = calculatePriceVariance(mean);
