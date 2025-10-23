@@ -24,6 +24,7 @@ class CoinbaseDownloaderTest {
         assertEquals(720, dummy.count);
 
         DataManager.getInstance().flushRepo();
+        DataManager.getInstance().removeObserver(dummy);
     }
 
 

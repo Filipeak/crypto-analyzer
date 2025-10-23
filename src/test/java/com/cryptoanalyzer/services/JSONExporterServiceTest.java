@@ -18,6 +18,7 @@ class JSONExporterServiceTest {
         DataManager.getInstance().initRepo();
         DataManager.getInstance().pushWebDataFrame(new WebDataFrame("Binance", "BTC_USD", 1700000000, 10, 11, 20, 4, 3));
         DataManager.getInstance().flushRepo();
+        DataManager.getInstance().removeObserver(exporter);
 
         final String expected = """
                 [

@@ -19,7 +19,7 @@ public final class HTTPDownloadUtils {
 
         try {
             url = URI.create(urlString).toURL();
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             Logger.error(e.getMessage());
 
             return null;

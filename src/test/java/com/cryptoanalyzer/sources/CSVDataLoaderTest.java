@@ -24,6 +24,24 @@ class CSVDataLoaderTest {
         assertEquals(720, dummy.count);
 
         DataManager.getInstance().flushRepo();
+        DataManager.getInstance().removeObserver(dummy);
+    }
+
+    @Test
+    void testLoadCSVDataWithInvalidPath() {
+        DownloadDummy dummy = new DownloadDummy();
+
+        DataManager.getInstance().addObserver(dummy);
+        DataManager.getInstance().initRepo();
+
+        CSVDataLoader loader = new CSVDataLoader("invalid/path");
+        WebDataSourceStatus status = loader.downloadFromWeb();
+
+        assertEquals(WebDataSourceStatus.FAILURE_NO_DATA, status);
+        assertEquals(0, dummy.count);
+
+        DataManager.getInstance().flushRepo();
+        DataManager.getInstance().removeObserver(dummy);
     }
 
 

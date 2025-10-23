@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CSVDataLoader implements WebDataSource {
 
-    private String fileName;
+    private final String fileName;
 
     public CSVDataLoader(String fileName) {
         this.fileName = fileName;

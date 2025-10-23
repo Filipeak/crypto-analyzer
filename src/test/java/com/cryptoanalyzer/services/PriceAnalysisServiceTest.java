@@ -25,6 +25,7 @@ class PriceAnalysisServiceTest {
         assertEquals(WebDataSourceStatus.SUCCESS, status);
 
         DataManager.getInstance().flushRepo();
+        DataManager.getInstance().removeObserver(exporter);
 
         final String expected = """
                 - Total Change: -4.302332%
