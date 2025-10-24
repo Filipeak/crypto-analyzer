@@ -23,8 +23,7 @@ public class Main {
         services.add(new JSONExporterService());
         services.add(new XMLExporterService());
         services.add(new YAMLExporterService());
-        services.add(new PriceAnalysisService());
-        services.add(new VolumeAnalysisService());
+        services.add(new RiskAnalysisService());
 
         new MainPanel(sources, services);
 

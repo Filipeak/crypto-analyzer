@@ -2,12 +2,15 @@ package com.cryptoanalyzer.data;
 
 import com.cryptoanalyzer.logging.Logger;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public final class DataManager {
     private static DataManager instance;
 
     private final HashSet<WebDataReceiver> observers;
+    private final ArrayList<WebDataFrame> frames;
 
 
     public static DataManager getInstance() {
@@ -21,6 +24,7 @@ public final class DataManager {
 
     private DataManager() {
         observers = new HashSet<>();
+        frames = new ArrayList<>();
     }
 
 
@@ -42,6 +46,8 @@ public final class DataManager {
             observer.onBegin();
         }
 
+        frames.clear();
+
         Logger.info("Prepared repository for data");
     }
 
@@ -49,6 +55,8 @@ public final class DataManager {
         for (WebDataReceiver observer : observers) {
             observer.onEnd();
         }
+
+        frames.clear();
 
         Logger.info("Flushed repository");
     }
@@ -58,6 +66,12 @@ public final class DataManager {
             observer.onSetData(frame);
         }
 
+        frames.add(frame);
+
         Logger.debug("Pushed next data frame");
+    }
+
+    public List<WebDataFrame> getFrames() {
+        return frames;
     }
 }
