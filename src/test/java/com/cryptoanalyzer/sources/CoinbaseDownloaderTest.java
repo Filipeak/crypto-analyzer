@@ -22,27 +22,10 @@ class CoinbaseDownloaderTest {
 
         assertEquals(WebDataSourceStatus.SUCCESS, status);
         assertEquals(720, dummy.count);
+        assertEquals(false, dummy.isNull);
+        assertEquals(false, dummy.invalidTimestamp);
 
         DataManager.getInstance().flushRepo();
         DataManager.getInstance().removeObserver(dummy);
-    }
-
-
-    private class DownloadDummy implements WebDataReceiver {
-
-        public int count = 0;
-
-        @Override
-        public void onBegin() {
-        }
-
-        @Override
-        public void onSetData(WebDataFrame frame) {
-            count++;
-        }
-
-        @Override
-        public void onEnd() {
-        }
     }
 }

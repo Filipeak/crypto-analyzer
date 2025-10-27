@@ -41,6 +41,27 @@ public class CoinbaseDownloader implements WebDataSource {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONArray element = jsonArray.getJSONArray(i);
 
+                    if (i > 0) {
+                        int timestampDiff = jsonArray.getJSONArray(i - 1).getInt(0) - element.getInt(0);
+
+                        while (timestampDiff > 3600) {
+                            WebDataFrame lastFrame = reversedData[currentIndex - 1];
+                            WebDataFrame newFrame = new WebDataFrame(
+                                    lastFrame.source,
+                                    lastFrame.symbol,
+                                    lastFrame.timestamp - 3600,
+                                    lastFrame.open,
+                                    lastFrame.close,
+                                    lastFrame.high,
+                                    lastFrame.low,
+                                    lastFrame.volume
+                            );
+                            timestampDiff -= 3600;
+
+                            reversedData[currentIndex++] = newFrame;
+                        }
+                    }
+
                     reversedData[currentIndex++] = new WebDataFrame(
                             "Coinbase",
                             "BTC_USD",
