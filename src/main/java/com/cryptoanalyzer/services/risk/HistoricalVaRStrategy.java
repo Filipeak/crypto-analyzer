@@ -10,6 +10,11 @@ public class HistoricalVaRStrategy implements RiskComputationStrategy {
     private static final float CONFIDENCE_LEVEL = 0.95f;
 
     @Override
+    public String getName() {
+        return "Historical VaR (95%)";
+    }
+
+    @Override
     public float execute(List<WebDataFrame> data) {
         ArrayList<Float> dailyReturns = new ArrayList<>();
 
@@ -21,7 +26,7 @@ public class HistoricalVaRStrategy implements RiskComputationStrategy {
 
         dailyReturns.sort(Float::compareTo);
 
-        int n = Math.max((int)Math.ceil(dailyReturns.size() * (1 - CONFIDENCE_LEVEL)), 1);
+        int n = Math.max((int) Math.ceil(dailyReturns.size() * (1 - CONFIDENCE_LEVEL)), 1);
 
         return dailyReturns.get(n - 1);
     }

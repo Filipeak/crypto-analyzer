@@ -14,6 +14,11 @@ public class LinearRegressionAnomaliesStrategy implements RiskComputationStrateg
 
 
     @Override
+    public String getName() {
+        return "Anomalies (anomalies/all)";
+    }
+
+    @Override
     public float execute(List<WebDataFrame> data) {
         ArrayList<Float> volumes = new ArrayList<>();
         ArrayList<Float> priceDiffs = new ArrayList<>();
