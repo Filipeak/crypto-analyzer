@@ -11,9 +11,9 @@ Project made for CS course at Wroclaw University of Science and Technology. The 
 ![](https://github.com/Filipeak/crypto-analyzer/blob/main/assets/uml.jpg)
 
 
-## Patterns
+## Design Patterns
 
- - Observer
- - Strategy
- - Singleton
- - Dependency Injection
+ - Observer (Logging, Exporters)
+ - Strategy (Sources, RiskStrategies)
+ - Singleton (DataManager, Logger)
+ - Dependency Injection (Exporters writers)

@@ -3,7 +3,6 @@ package com.cryptoanalyzer.services;
 import com.cryptoanalyzer.data.DataManager;
 import com.cryptoanalyzer.data.WebDataSourceStatus;
 import com.cryptoanalyzer.files.StringBufferedWriterCreator;
-import com.cryptoanalyzer.services.risk.HistoricalVaRStrategy;
 import com.cryptoanalyzer.sources.CSVDataLoader;
 import org.junit.jupiter.api.Test;
 
