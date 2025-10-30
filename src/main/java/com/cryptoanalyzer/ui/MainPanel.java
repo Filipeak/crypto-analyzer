@@ -17,6 +17,7 @@ public class MainPanel {
     private final DataService[] services;
     private WebDataSource currentSource;
 
+
     public MainPanel(WebDataSource[] sources, DataService[] services) {
         window = new JFrame();
         window.setTitle("Crypto downloader");
@@ -35,7 +36,7 @@ public class MainPanel {
         this.sources = sources;
         this.services = services;
 
-        setupButton();
+        setupStartButton();
         setupPagesReadText();
         setupCandlestickPanel();
         setupSources();
@@ -47,24 +48,15 @@ public class MainPanel {
         Logger.info("Initialized Main UI Panel");
     }
 
-    private void setupButton() {
+
+    private void setupStartButton() {
         final int buttonWidth = 250;
 
         JButton startButton = new JButton("START");
 
         startButton.setBounds(window.getWidth() / 2 - buttonWidth / 2, 450, buttonWidth, 50);
         startButton.addActionListener(e -> {
-            if (currentSource != null) {
-                Logger.info("Starting News Scraper...");
-
-                DataManager.getInstance().initRepo();
-                WebDataSourceStatus status = currentSource.downloadFromWeb();
-                DataManager.getInstance().flushRepo();
-
-                showStatusPanel(status);
-            } else {
-                Logger.error("No source selected");
-            }
+            startDownload();
         });
 
         window.add(startButton);
@@ -89,9 +81,7 @@ public class MainPanel {
             JRadioButton radioButton = new JRadioButton(sources[btnIndex].getName());
             radioButton.setBounds(10, i * 40, 250, 60);
             radioButton.addActionListener(e -> {
-                Logger.debug("Radio Button '" + sources[btnIndex].getName() + "' selected");
-
-                currentSource = sources[btnIndex];
+                handleSourceRadioButtonClicked(btnIndex);
             });
 
             if (i == 0) {
@@ -112,13 +102,7 @@ public class MainPanel {
             JCheckBox checkbox = new JCheckBox(services[btnIndex].getName());
             checkbox.setBounds(300, i * 40, 250, 60);
             checkbox.addActionListener(e -> {
-                Logger.debug("Checkbox '" + services[btnIndex].getName() + "' selected: " + checkbox.isSelected());
-
-                if (checkbox.isSelected()) {
-                    DataManager.getInstance().addObserver(services[btnIndex]);
-                } else {
-                    DataManager.getInstance().removeObserver(services[btnIndex]);
-                }
+                handleServiceCheckboxClicked(btnIndex, checkbox.isSelected());
             });
             checkbox.doClick();
 
@@ -126,6 +110,21 @@ public class MainPanel {
         }
 
         Logger.info("Setup of services buttons complete!");
+    }
+
+
+    private void startDownload() {
+        if (currentSource != null) {
+            Logger.info("Starting News Scraper...");
+
+            DataManager.getInstance().initRepo();
+            WebDataSourceStatus status = currentSource.downloadFromWeb();
+            DataManager.getInstance().flushRepo();
+
+            showStatusPanel(status);
+        } else {
+            Logger.error("No source selected");
+        }
     }
 
     private void showStatusPanel(WebDataSourceStatus status) {
@@ -136,5 +135,21 @@ public class MainPanel {
         };
 
         JOptionPane.showMessageDialog(window, messageText);
+    }
+
+    private void handleSourceRadioButtonClicked(int btnIndex) {
+        Logger.debug("Radio Button '" + sources[btnIndex].getName() + "' selected");
+
+        currentSource = sources[btnIndex];
+    }
+
+    private void handleServiceCheckboxClicked(int btnIndex, boolean selected) {
+        Logger.debug("Checkbox '" + services[btnIndex].getName() + "' selected: " + selected);
+
+        if (selected) {
+            DataManager.getInstance().addObserver(services[btnIndex]);
+        } else {
+            DataManager.getInstance().removeObserver(services[btnIndex]);
+        }
     }
 }
