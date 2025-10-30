@@ -9,16 +9,15 @@ import com.cryptoanalyzer.logging.Logger;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
 public class MainPanel {
 
     private final JFrame window;
-    private final List<WebDataSource> sources;
-    private final List<DataService> services;
+    private final WebDataSource[] sources;
+    private final DataService[] services;
     private WebDataSource currentSource;
 
-    public MainPanel(List<WebDataSource> sources, List<DataService> services) {
+    public MainPanel(WebDataSource[] sources, DataService[] services) {
         window = new JFrame();
         window.setTitle("Crypto downloader");
         window.setSize(500, 600);
@@ -84,15 +83,15 @@ public class MainPanel {
     private void setupSources() {
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        for (int i = 0; i < sources.size(); i++) {
+        for (int i = 0; i < sources.length; i++) {
             final int btnIndex = i;
 
-            JRadioButton radioButton = new JRadioButton(sources.get(btnIndex).getName());
+            JRadioButton radioButton = new JRadioButton(sources[btnIndex].getName());
             radioButton.setBounds(10, i * 40, 250, 60);
             radioButton.addActionListener(e -> {
-                Logger.debug("Radio Button '" + sources.get(btnIndex).getName() + "' selected");
+                Logger.debug("Radio Button '" + sources[btnIndex].getName() + "' selected");
 
-                currentSource = sources.get(btnIndex);
+                currentSource = sources[btnIndex];
             });
 
             if (i == 0) {
@@ -107,18 +106,18 @@ public class MainPanel {
     }
 
     private void setupServices() {
-        for (int i = 0; i < services.size(); i++) {
+        for (int i = 0; i < services.length; i++) {
             final int btnIndex = i;
 
-            JCheckBox checkbox = new JCheckBox(services.get(btnIndex).getName());
+            JCheckBox checkbox = new JCheckBox(services[btnIndex].getName());
             checkbox.setBounds(300, i * 40, 250, 60);
             checkbox.addActionListener(e -> {
-                Logger.debug("Checkbox '" + services.get(btnIndex).getName() + "' selected: " + checkbox.isSelected());
+                Logger.debug("Checkbox '" + services[btnIndex].getName() + "' selected: " + checkbox.isSelected());
 
                 if (checkbox.isSelected()) {
-                    DataManager.getInstance().addObserver(services.get(btnIndex));
+                    DataManager.getInstance().addObserver(services[btnIndex]);
                 } else {
-                    DataManager.getInstance().removeObserver(services.get(btnIndex));
+                    DataManager.getInstance().removeObserver(services[btnIndex]);
                 }
             });
             checkbox.doClick();

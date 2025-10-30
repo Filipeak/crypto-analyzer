@@ -6,24 +6,24 @@ import com.cryptoanalyzer.logging.*;
 import com.cryptoanalyzer.sources.*;
 import com.cryptoanalyzer.ui.*;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
         Logger.getInstance().setLevel(LoggingLevel.DEBUG);
         Logger.getInstance().addSink(new ConsoleLoggingSink());
         Logger.getInstance().addSink(new FileLoggingSink());
 
-        ArrayList<WebDataSource> sources = new ArrayList<>();
-        sources.add(new BinanceDownloader());
-        sources.add(new CoinbaseDownloader());
+        WebDataSource[] sources = new WebDataSource[]{
+                new BinanceDownloader(),
+                new CoinbaseDownloader(),
+        };
 
-        ArrayList<DataService> services = new ArrayList<>();
-        services.add(new CSVExporterService());
-        services.add(new JSONExporterService());
-        services.add(new XMLExporterService());
-        services.add(new YAMLExporterService());
-        services.add(new RiskAnalysisService());
+        DataService[] services = new DataService[]{
+                new CSVExporterService(),
+                new JSONExporterService(),
+                new XMLExporterService(),
+                new YAMLExporterService(),
+                new RiskAnalysisService(),
+        };
 
         new MainPanel(sources, services);
 
