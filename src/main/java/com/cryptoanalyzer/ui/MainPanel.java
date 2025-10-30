@@ -1,19 +1,14 @@
 package com.cryptoanalyzer.ui;
 
 import com.cryptoanalyzer.data.DataManager;
-import com.cryptoanalyzer.data.WebDataFrame;
 import com.cryptoanalyzer.data.WebDataSource;
 import com.cryptoanalyzer.data.WebDataSourceStatus;
 import com.cryptoanalyzer.services.DataService;
 import com.cryptoanalyzer.logging.Logger;
 
-import org.knowm.xchart.*;
-
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainPanel {
@@ -43,6 +38,7 @@ public class MainPanel {
 
         setupButton();
         setupPagesReadText();
+        setupCandlestickPanel();
         setupSources();
         setupServices();
 
@@ -63,13 +59,10 @@ public class MainPanel {
                 Logger.info("Starting News Scraper...");
 
                 DataManager.getInstance().initRepo();
-
                 WebDataSourceStatus status = currentSource.downloadFromWeb();
+                DataManager.getInstance().flushRepo();
 
                 showStatusPanel(status);
-                showCandlesPlot();
-
-                DataManager.getInstance().flushRepo();
             } else {
                 Logger.error("No source selected");
             }
@@ -82,6 +75,10 @@ public class MainPanel {
 
     private void setupPagesReadText() {
         new CandlesReadPanel(window);
+    }
+
+    private void setupCandlestickPanel() {
+        new CandlestickChartPanel();
     }
 
     private void setupSources() {
@@ -140,35 +137,5 @@ public class MainPanel {
         };
 
         JOptionPane.showMessageDialog(window, messageText);
-    }
-
-    private void showCandlesPlot() {
-        List<Date> dates = new ArrayList<>();
-        List<Double> open = new ArrayList<>();
-        List<Double> high = new ArrayList<>();
-        List<Double> low = new ArrayList<>();
-        List<Double> close = new ArrayList<>();
-
-        for (WebDataFrame f : DataManager.getInstance().getFrames()) {
-            dates.add(new Date(((long) f.timestamp) * 1000L));
-            open.add((double) f.open);
-            high.add((double) f.high);
-            low.add((double) f.low);
-            close.add((double) f.close);
-        }
-
-        OHLCChart chart = new OHLCChartBuilder()
-                .width(800)
-                .height(600)
-                .title("Candlestick Example")
-                .xAxisTitle("Date")
-                .yAxisTitle("Price")
-                .build();
-
-        chart.addSeries("Price", dates, open, high, low, close);
-
-        new Thread(() -> {
-            new SwingWrapper<>(chart).displayChart();
-        }).start();
     }
 }
