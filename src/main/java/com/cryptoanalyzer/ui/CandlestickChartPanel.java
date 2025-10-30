@@ -52,6 +52,10 @@ public class CandlestickChartPanel implements WebDataReceiver {
 
     @Override
     public void onEnd() {
+        if (candles.isEmpty()) {
+            return;
+        }
+
         Logger.info("Showing candlestick chart...");
 
         List<Date> dates = new ArrayList<>();

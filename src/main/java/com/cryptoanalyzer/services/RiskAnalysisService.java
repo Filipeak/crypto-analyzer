@@ -49,25 +49,27 @@ public class RiskAnalysisService extends FileExporterService {
 
     @Override
     public void onEnd() {
-        float mean = calculateMeanPrice();
-        float var = calculatePriceVariance(mean);
-        float volatility = calculateVolatility(var);
-        float volatilityPercentage = volatility / pricesClose.getLast() * 100;
-        RiskComputationStrategy strategy = null;
+        if (!pricesClose.isEmpty()) {
+            float mean = calculateMeanPrice();
+            float var = calculatePriceVariance(mean);
+            float volatility = calculateVolatility(var);
+            float volatilityPercentage = volatility / pricesClose.getLast() * 100;
+            RiskComputationStrategy strategy = null;
 
-        if (volatilityPercentage <= 15.0f) {
-            strategy = new HistoricalVaRStrategy();
-        } else {
-            strategy = new LinearRegressionAnomaliesStrategy();
+            if (volatilityPercentage <= 15.0f) {
+                strategy = new HistoricalVaRStrategy();
+            } else {
+                strategy = new LinearRegressionAnomaliesStrategy();
+            }
+
+            String name = strategy.getName();
+            float value = strategy.execute(DataManager.getInstance().getFrames());
+            float valuePercentage = value * 100;
+
+            writeToFile("Volatility: " + Math.round(volatilityPercentage * 100.0f) / 100.0f + "%\n");
+            writeToFile("Selected model: " + name + "\n");
+            writeToFile("Value: " + Math.round(valuePercentage * 100.0f) / 100.0f + "%\n");
         }
-
-        String name = strategy.getName();
-        float value = strategy.execute(DataManager.getInstance().getFrames());
-        float valuePercentage = value * 100;
-
-        writeToFile("Volatility: " + Math.round(volatilityPercentage * 100.0f) / 100.0f + "%\n");
-        writeToFile("Selected model: " + name + "\n");
-        writeToFile("Value: " + Math.round(valuePercentage * 100.0f) / 100.0f + "%\n");
 
         super.onEnd();
     }
