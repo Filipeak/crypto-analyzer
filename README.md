@@ -5,6 +5,18 @@
 
 Projekt wykonany na potrzeby kursu informatycznego na Politechnice Wrocławskiej. Celem projektu jest pobieranie danych kryptowalutowych, zapisywanie ich w ustrukturyzowanych formatach oraz wykonywanie analiz.
 
+Aktualnie dostępne są dwie strategie pobierania danych (źródła):
+1. Binance
+2. Coinbase
+3. Pobieranie danych CSV (służy wyłącznie do testów)
+
+Dostępne metody do eksportowania / analizy:
+1. JSON
+2. CSV
+3. XML
+4. YAML
+5. Ryzyko (plik .txt); strategia ryzyka zależy od zmienności ceny
+
 
 ## Podgląd
 
