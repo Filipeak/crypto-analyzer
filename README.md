@@ -1,19 +1,48 @@
 # Crypto Analyzer
 
 
-## Overview
+## Opis
 
-Project made for CS course at Wroclaw University of Science and Technology. The goal of the project is to download crypto data and store in structured formats, and perform some analysis.
+Projekt wykonany na potrzeby kursu informatycznego na Politechnice Wrocławskiej. Celem projektu jest pobieranie danych kryptowalutowych, zapisywanie ich w ustrukturyzowanych formatach oraz wykonywanie analiz.
 
 
-## UML
+## Podgląd
+
+### Główny ekran
+
+![](https://github.com/Filipeak/crypto-analyzer/blob/main/assets/mainPreview.png)
+
+### Wykres ceny
+
+![](https://github.com/Filipeak/crypto-analyzer/blob/main/assets/chartPreview.png)
+
+
+## Architektura
+
+### Diagram UML
 
 ![](https://github.com/Filipeak/crypto-analyzer/blob/main/assets/uml.jpg)
 
+### Wzorce projektowe
 
-## Design Patterns
+ - **Observer (obserwator)** – użyty w logowaniu i eksporterach
+ - **Strategy (Strategia)** – zastosowany dla źródeł danych oraz różnych strategii ryzyka
+ - **Singleton (Pojedynczy)** – wykorzystany w klasach DataManager i Logger
+ - **Dependency Injection (Wstrzykiwanie zależności)** – użyte w modułach eksportujących dane
 
- - Observer (Logging, Exporters)
- - Strategy (Sources, RiskStrategies)
- - Singleton (DataManager, Logger)
- - Dependency Injection (Exporters writers)
+
+## Ocena ryzyka
+
+Ryzyko jest szacowane za pomocą dwóch metod, a dana metoda jest wybierana na podstawie zmienności rynku (Volatility):
+
+#### VaR (Value at Risk)
+
+Ta metoda odpowiada na pytanie jaka potencjalna możliwa strata przy pewności 95%.
+
+#### Wykrywanie anomalii za pomocą regresji liniowej
+
+Ta metoda próbuje stworzyć najbardziej pasującą linię na wykresie Zmiana ceny vs Wolumen:
+
+![](https://github.com/Filipeak/crypto-analyzer/blob/main/assets/linearRegression.png)
+
+Potem wszystkie "anomalie", czyli punkty najbardziej oddalone są zliczane i obliczany jest procent do całości.
