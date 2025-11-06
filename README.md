@@ -37,10 +37,24 @@ Dostępne metody do eksportowania / analizy:
 
 ### Wzorce projektowe
 
- - **Observer (obserwator)** – użyty w logowaniu i eksporterach
- - **Strategy (Strategia)** – zastosowany dla źródeł danych oraz różnych strategii ryzyka
- - **Singleton (Pojedynczy)** – wykorzystany w klasach DataManager i Logger
- - **Dependency Injection (Wstrzykiwanie zależności)** – użyte w modułach eksportujących dane
+Projekt został zaprojektowany w oparciu o kilka klasycznych wzorców projektowych, które zwiększają jego modularność, rozszerzalność i łatwość utrzymania. Poniżej znajduje się szczegółowe omówienie ich zastosowania:
+
+**Observer (obserwator)** – użyty w logowaniu i eksporterach. Pozwala na automatyczne powiadamianie zainteresowanych obiektów.
+- moduły logowania reagują natychmiast na nowe logi bez konieczności ścisłego powiązania z logiką biznesową
+- eksporterzy mogą dynamicznie reagować na aktualizację danych, zapisując je w odpowiednich formatach
+- łatwo można dodać nowe komponenty reagujące na zdarzenia bez modyfikacji istniejącego kodu
+
+**Strategy (Strategia)** – został zastosowany w dwóch kluczowych miejscach:
+- Źródła danych – różne strategie pobierania danych (np. *Binance*, *Coinbase*, *CSV*) implementują ten sam interfejs, dzięki czemu można je łatwo wymieniać lub dodawać nowe bez zmiany głównej logiki programu.
+- Strategie ryzyka – różne metody oceny ryzyka (np. Value at Risk, regresja liniowa) są niezależnymi strategiami, które można dynamicznie wybierać w zależności od warunków rynkowych (np. zmienności).
+
+**Singleton (Pojedynczy)** – wykorzystany w klasach *DataManager* i *Logger*. Celem jest zagwarantowanie, że w systemie istnieje tylko jedna instancja tych klas.
+
+**Dependency Injection (Wstrzykiwanie zależności)** – Zastosowanie Dependency Injection pozwala na luźne powiązanie między komponentami – szczególnie w przypadku eksporterów danych. Zamiast tworzyć obiekty eksportujące bezpośrednio w kodzie, są one wstrzykiwane jako zależności (np. do klasy zarządzającej eksportem - *BufferedWriterCreator*).
+Korzyści:
+- ułatwione testowanie (można łatwo podmieniać zależności na atrapy)
+- lepsza czytelność i modularność
+- możliwość łatwej rozbudowy o nowe typy eksporterów (np. PDF, SQL) bez ingerencji w istniejącą logikę.
 
 
 ## Ocena ryzyka
